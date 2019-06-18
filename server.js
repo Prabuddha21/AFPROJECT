@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const Bundler = require("parcel-bundler");
 const cors = require("cors");
 
-const bundler = new Bundler('./public/index.html');
+const bundler = new Bundler('./src/index.html');
 
 server.use(cors());
 server.use(bodyParser.urlencoded({extended: false}));
