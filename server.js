@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const Bundler = require("parcel-bundler");
 const cors = require("cors");
 
-const bundler = new Bundler('./src/index.html');
+const bundler = new Bundler('./src/index.html', {});
 
 server.use(cors());
 server.use(bodyParser.urlencoded({extended: false}));
@@ -12,9 +12,9 @@ server.use(bodyParser.json());
 server.use(bundler.middleware());
 server.use(express.static('./dist'));
 
-server.get('/', function (req, res) {
-    res.sendFile('./dist/index.html');
-});
+const Router = require('./Routes');
+
+server.use('/', Router);
 
 server.listen(3000, err => {
     if (err) {
