@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Link, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
 import AdminLogin from './Component/AdminLogin';
+import AdminDashboard from './Component/AdminDashboard';
+import AdminAuthentication from './Component/AdminAuthentication';
 
 export default class AppComponent extends Component{
 
@@ -9,18 +12,14 @@ export default class AppComponent extends Component{
     }
 
     render() {
-
-        if(window.location.pathname === '/'){
-            return <div>
-                <h1>Hello User</h1>
+        return <Router>
+            <div>
+                <Switch>
+                <Route exact path="/"/>
+                <Route exact path="/admin" component={AdminLogin}/>
+                <AdminAuthentication path="/admin/dashboard" component={AdminDashboard}/>
+                </Switch>
             </div>
-        }
-        else {
-            return <div>
-                <h1>Hello Admin</h1>
-                <AdminLogin/>
-            </div>
-        }
-
+        </Router>
     }
 }

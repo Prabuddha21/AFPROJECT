@@ -5,16 +5,15 @@ const Bundler = require("parcel-bundler");
 const cors = require("cors");
 
 const bundler = new Bundler('./src/index.html', {});
+const Routes = require('./Routes');
 
 server.use(cors());
 server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
+server.use('/', Routes);
 server.use(bundler.middleware());
 server.use(express.static('./dist'));
 
-const Router = require('./Routes');
-
-server.use('/', Router);
 
 server.listen(3000, err => {
     if (err) {
