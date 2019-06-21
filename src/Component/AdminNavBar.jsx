@@ -45,7 +45,7 @@ class AdminNavBar extends Component{
                                 Add Administers
                             </Link>
                             <Link to="/admin/dashboard/admin/update" className="dropdown-item">
-                                Update Administers
+                                Administer Profile
                             </Link>
                         </div>
                     </li>

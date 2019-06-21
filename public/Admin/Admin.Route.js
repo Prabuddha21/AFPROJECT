@@ -18,10 +18,44 @@ admin.post('/register', (req, res) => {
     })
 });
 
-admin.get('/profile', (req, res) => {
-    AdminController.select(req).then(data => {
+admin.post('/profile', (req, res) => {
+    AdminController.select(req.body).then(data => {
         res.status(data.status).send(data.data);
     }).catch(err => {
+        console.log(err);
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.put('/update', (req, res) => {
+    AdminController.update(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.post('/instructor/register', (req, res) => {
+    AdminController.insertInstructor(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.put('/instructor/update', (req, res) => {
+    AdminController.updateInstructor(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.post('/instructor/profile', (req, res) => {
+    AdminController.selectInstructor(req.body).then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        console.log(err);
         res.status(err.status).send(err.message);
     })
 });

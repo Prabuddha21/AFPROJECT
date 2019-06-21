@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import jwt from "jsonwebtoken";
 
 export default class AdminRegister extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            _id: "",
             firstName: "",
             lastName: "",
             NIC: "",
@@ -18,12 +20,37 @@ export default class AdminRegister extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+
+    componentWillMount() {
+        jwt.verify(sessionStorage.getItem('admintoken'), 'secret', (err, decoded) => {
+            if(err) {
+                console.log(err);
+            } else {
+                const token = sessionStorage.getItem('admintoken');
+                axios.post('http://localhost:3000/administrator/profile', {token: token})
+                    .then(res => {
+                        this.setState({
+                            _id: res.data._id,
+                            firstName: res.data.firstName,
+                            lastName: res.data.lastName,
+                            NIC: res.data.NIC,
+                            email: res.data.email,
+                            contactNumber: res.data.contactNumber
+                        });
+                    }).catch(err => {
+                        alert(err.response.data);
+                })
+            }
+        });
+    }
+
     onChange(event) {
         this.setState({[event.target.name]: event.target.value})
     }
 
     onSubmit(event) {
         event.preventDefault();
+        const _id = this.state._id;
         const firstName = this.state.firstName.trim();
         const lastName = this.state.lastName.trim();
         const NIC = this.state.NIC.trim();
@@ -32,7 +59,7 @@ export default class AdminRegister extends Component {
         const password = this.state.password;
         const cPass = this.state.cPassword;
 
-        if (firstName == '' || lastName == '' || NIC == '' || contactNumber == '' || password == '' || cPass == '') {
+        if (firstName == '' || lastName == '' || NIC == '' || contactNumber == '') {
             alert('One or more fields are empty!');
         } else {
             if (/^[0-9]{9}[v|V]+$/.test(NIC)) {
@@ -41,6 +68,7 @@ export default class AdminRegister extends Component {
                         alert('Entered password does not match confirmed password!');
                     } else {
                         const user = {
+                            _id: _id,
                             firstName: firstName,
                             lastName: lastName,
                             NIC: NIC,
@@ -49,7 +77,7 @@ export default class AdminRegister extends Component {
                             contactNumber: contactNumber
                         };
 
-                        axios.post('http://localhost:3000/administrator/register', user).then(data => {
+                        axios.put('http://localhost:3000/administrator/update', user).then(data => {
                             alert(data.data);
                         }).catch(err => {
                             alert(err.response.data);
@@ -69,7 +97,8 @@ export default class AdminRegister extends Component {
             <div className="row">
                 <div className="col-md-6 mt-5 mx-auto">
                     <form onSubmit={this.onSubmit}>
-                        <h1 className="h3 mb-3 font-weight-normal">Enter Details of the New Admin</h1>
+                        <h1 className="h3 mb-3 font-weight-normal">Admin Profile</h1>
+                        <p>Edit and submit to update</p>
                         <div className="form-group">
                             <label htmlFor="firstName">First Name</label>
                             <input type="text"
@@ -133,7 +162,6 @@ export default class AdminRegister extends Component {
                                    className="form-control"
                                    value={this.state.password}
                                    onChange={this.onChange}
-                                   required
                             />
                         </div>
                         <div className="form-group">
@@ -144,11 +172,11 @@ export default class AdminRegister extends Component {
                                    className="form-control"
                                    value={this.state.cPassword}
                                    onChange={this.onChange}
-                                   required
+
                             />
                         </div>
                         <button type="submit" className="btn btn-lg btn-primary btn-block">
-                            Register
+                            Update
                         </button>
                     </form>
                 </div>
