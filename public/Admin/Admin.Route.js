@@ -26,4 +26,20 @@ admin.get('/profile', (req, res) => {
     })
 });
 
+admin.post('/addnotice', (req, res) => {
+    AdminController.addNotice(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.get('/getnotices', (req, res) => {
+    AdminController.getNotice(req.body).then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
 module.exports = admin;

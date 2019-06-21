@@ -93,9 +93,30 @@ const CourseSchema = new Schema({
     }]
 });
 
+const NoticeSchema = new Schema({
+
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
+    by: {
+        type: String,
+        required: true
+    }
+});
+
 mongoose.model('Admin', AdminSchema);
 mongoose.model('Instructor', InstructorSchema);
 mongoose.model('Course', CourseSchema);
+mongoose.model('Notice', NoticeSchema);
 
 mongoose.connect('mongodb://localhost:27017/afproject', { useNewUrlParser: true}, err => {
     if(err){

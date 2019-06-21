@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 
-export default class AdminNavBar extends Component{
+class AdminNavBar extends Component{
 
     constructor(props) {
         super(props);
+        this.logOut = this.logOut.bind(this);
+    }
+
+    logOut(event){
+        event.preventDefault();
+        sessionStorage.removeItem('admintoken');
+        sessionStorage.clear();
+        this.props.history.push("/admin");
+        window.location.reload();
     }
 
     render() {
@@ -27,19 +36,51 @@ export default class AdminNavBar extends Component{
                             Home
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/admin/dashboard/manageadmin" className="nav-link">
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Manage Administers
-                        </Link>
+                        </a>
+                        <div className="dropdown-menu">
+                            <Link to="/admin/dashboard/admin/add" className="dropdown-item">
+                                Add Administers
+                            </Link>
+                            <Link to="/admin/dashboard/admin/update" className="dropdown-item">
+                                Update Administers
+                            </Link>
+                        </div>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/admin/dashboard/instructors" className="nav-link">
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Manage Instructors
-                        </Link>
+                        </a>
+                        <div className="dropdown-menu">
+                            <Link to="/admin/dashboard/instructor/add" className="dropdown-item">
+                                Add Instructors
+                            </Link>
+                            <Link to="/admin/dashboard/instructor/update" className="dropdown-item">
+                                Update Instructors
+                            </Link>
+                        </div>
+                    </li>
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Manage Courses
+                        </a>
+                        <div className="dropdown-menu">
+                            <Link to="/admin/dashboard/course/add" className="dropdown-item">
+                                Add Course
+                            </Link>
+                            <Link to="/admin/dashboard/course/update" className="dropdown-item">
+                                Update Course
+                            </Link>
+                            <Link to="/admin/dashboard/course/instructors" className="dropdown-item">
+                                Add Instructor
+                            </Link>
+                        </div>
                     </li>
                     <li className="nav-item">
-                        <Link to="/admin/dashboard/courses" className="nav-link">
-                            Manage Courses
+                        <Link onClick={this.logOut} to="/admin/dashboard" className="nav-link">
+                            LogOut
                         </Link>
                     </li>
                 </ul>
@@ -47,3 +88,5 @@ export default class AdminNavBar extends Component{
         </nav>
     }
 }
+
+export default withRouter(AdminNavBar);

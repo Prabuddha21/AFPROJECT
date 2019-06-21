@@ -23,7 +23,7 @@ export default class AdminLogin extends Component {
         const pass = this.state.password;
 
         if(uname !== "" && pass !== "" && uname != null && pass != null){
-            axios.post('http://localhost:3000/administer/login', {
+            axios.post('http://localhost:3000/administrator/login', {
                 email: uname,
                 password: pass
             }).then(data => {

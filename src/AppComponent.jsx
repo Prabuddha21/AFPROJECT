@@ -13,7 +13,7 @@ export default class AppComponent extends Component{
 
     render() {
         return <Router>
-            <div>
+            <div className="AppContainer">
                 <Switch>
                 <Route exact path="/"/>
                 <Route exact path="/admin" component={AdminLogin}/>

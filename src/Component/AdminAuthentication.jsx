@@ -11,8 +11,14 @@ export default class AdminAuthentication extends Component{
     render() {
         const {path} = this.props.path;
         const Component =  this.props.component;
-        const admintoken = sessionStorage.getItem('admintoken');
-        const isLoggedIn = admintoken != null;
+        let isLoggedIn = false;
+        jwt.verify(sessionStorage.getItem('admintoken'), 'secret', (err, decode) => {
+            if(err){
+                isLoggedIn = false;
+            } else {
+                isLoggedIn = true;
+            }
+        });
 
         return <Route path={path} render={() => {
             return isLoggedIn ? <Component/> : <Redirect to="/admin"/> }

@@ -1,5 +1,6 @@
 const mongoose = require('../DBSchema/SchemaMapper');
 const AdminSchema = mongoose.model('Admin');
+const NoticeSchema = mongoose.model('Notice');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -82,6 +83,31 @@ const AdminController = function () {
         });
     };
 
+    this.addNotice = (data) => {
+        return new Promise((resolve, reject) => {
+            const notice = new NoticeSchema({
+                title: data.title,
+                content: data.content,
+                by: data.by
+            });
+
+            notice.save().then(() => {
+                resolve({status: 200, message: "Notice Created."})
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        })
+    };
+
+    this.getNotice = () => {
+        return new Promise((resolve, reject) => {
+            NoticeSchema.find().limit(3).sort({'_id': -1}).then((data) => {
+                resolve({status: 200, data: data})
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        })
+    };
 
 };
 
