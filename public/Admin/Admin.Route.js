@@ -10,6 +10,14 @@ admin.post('/login', (req, res) => {
    })
 });
 
+admin.post('/reset', (req, res) => {
+    AdminController.resetPassword(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
 admin.post('/register', (req, res) => {
     AdminController.insert(req.body).then(data => {
         res.status(data.status).send(data.message);
@@ -33,6 +41,14 @@ admin.put('/update', (req, res) => {
     }).catch(err => {
         res.status(err.status).send(err.message);
     })
+});
+
+admin.get('/instructors', (req, res) => {
+    AdminController.selectAllInstructors().then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    });
 });
 
 admin.post('/instructor/register', (req, res) => {
@@ -60,6 +76,30 @@ admin.post('/instructor/profile', (req, res) => {
     })
 });
 
+admin.post('/course/register', (req, res) => {
+    AdminController.insertCourse(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.get('/courses', (req, res) => {
+    AdminController.selectAllCourses().then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    });
+});
+
+admin.post('/subject/register', (req, res) => {
+    AdminController.insertSubject(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
 admin.post('/addnotice', (req, res) => {
     AdminController.addNotice(req.body).then(data => {
         res.status(data.status).send(data.message);
@@ -69,7 +109,7 @@ admin.post('/addnotice', (req, res) => {
 });
 
 admin.get('/getnotices', (req, res) => {
-    AdminController.getNotice(req.body).then(data => {
+    AdminController.getNotice().then(data => {
         res.status(data.status).send(data.data);
     }).catch(err => {
         res.status(err.status).send(err.message);

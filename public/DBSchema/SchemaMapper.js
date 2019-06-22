@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AdminSchema = new Schema({
-
     firstName: {
         type: String,
         required: true
@@ -34,7 +33,6 @@ const AdminSchema = new Schema({
 });
 
 const InstructorSchema = new Schema({
-
     firstName: {
         type: String,
         required: true
@@ -74,7 +72,6 @@ const InstructorSchema = new Schema({
 });
 
 const CourseSchema = new Schema({
-
     code: {
         type: String,
         required: true
@@ -83,18 +80,50 @@ const CourseSchema = new Schema({
         type: String,
         required: true
     },
-    subject: {
+    years: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    subjects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Subject'
+    }],
+    isEnabled: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const SubjectSchema = new Schema({
+    code: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
         type: String,
         required: true
     },
     instructors: [{
         type: Schema.Types.ObjectId,
         ref: 'Instructor'
+    }],
+    assignments: [{
+        type: String
+    }],
+    exams: [{
+        type: String
     }]
 });
 
 const NoticeSchema = new Schema({
-
     title: {
         type: String,
         required: true
@@ -116,6 +145,7 @@ const NoticeSchema = new Schema({
 mongoose.model('Admin', AdminSchema);
 mongoose.model('Instructor', InstructorSchema);
 mongoose.model('Course', CourseSchema);
+mongoose.model('Subject', SubjectSchema);
 mongoose.model('Notice', NoticeSchema);
 
 mongoose.connect('mongodb://localhost:27017/afproject', { useNewUrlParser: true}, err => {

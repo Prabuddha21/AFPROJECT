@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
 import axios from 'axios';
 
-class AdminLogin extends Component {
+export default class AdminLogin extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            userName: "",
-            password: ""
+            userName: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,20 +19,18 @@ class AdminLogin extends Component {
     handleSubmit(event){
         event.preventDefault();
         const uname = this.state.userName;
-        const pass = this.state.password;
 
-        if(uname !== "" && pass !== "" && uname != null && pass != null){
-            axios.post('http://localhost:3000/administrator/login', {
-                email: uname,
-                password: pass
+        if(uname !== "" && uname != null){
+            axios.post('http://localhost:3000/administrator/reset', {
+                email: uname
             }).then(data => {
-                sessionStorage.setItem('admintoken', data.data);
-                this.props.history.push('/admin/dashboard');
+                alert(data.data);
+                this.props.history.push('/admin');
             }).catch((err) => {
                 alert(err.response.data);
             })
         } else {
-            alert("Please enter valid credentials.");
+            alert("Please enter a valid email.");
         }
     }
 
@@ -43,7 +39,7 @@ class AdminLogin extends Component {
             <div className="row">
                 <div className="col-md-6 mt-5 mx-auto">
                     <form onSubmit={this.handleSubmit}>
-                        <h1 className="h3 mb-3 font-weight-normal">Please Log In</h1>
+                        <h1 className="h3 mb-3 font-weight-normal">Please Your Email</h1>
                         <div>
                             <label htmlFor="userName">User Name</label>
                             <input
@@ -55,24 +51,8 @@ class AdminLogin extends Component {
                                 placeholder="User Name"
                             />
                         </div>
-                        <div>
-                            <label htmlFor="Password">Password</label>
-                            <input
-                                name="password"
-                                type="password"
-                                className="form-control"
-                                value={this.state.password}
-                                onChange={this.handleChange}
-                                placeholder="Password"
-                            />
-                        </div>
-                        <br/>
-                        <Link to="/admin/reset">
-                            Forgot password? Click here to reset
-                        </Link>
-                        <br/>
                         <button type="submit" className="btn btn-lg btn-primary btn-block">
-                            Log In
+                            Reset Password
                         </button>
                     </form>
                 </div>
@@ -80,5 +60,3 @@ class AdminLogin extends Component {
         </div>
     }
 }
-
-export default withRouter(AdminLogin);

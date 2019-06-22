@@ -73,8 +73,11 @@ class AdminNavBar extends Component{
                             <Link to="/admin/dashboard/course/update" className="dropdown-item">
                                 Update Course
                             </Link>
-                            <Link to="/admin/dashboard/course/instructors" className="dropdown-item">
-                                Add Instructor
+                            <Link to="/admin/dashboard/subject/add" className="dropdown-item">
+                                Add Subject
+                            </Link>
+                            <Link to="/admin/dashboard/subject/update" className="dropdown-item">
+                                Update Subject
                             </Link>
                         </div>
                     </li>

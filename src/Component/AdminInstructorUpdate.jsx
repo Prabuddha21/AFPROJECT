@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-export default class AdminRegister extends Component {
+export default class AdminInstructorUpdate extends Component {
 
     constructor(props) {
         super(props);
@@ -67,7 +67,7 @@ export default class AdminRegister extends Component {
                     if (password !== cPass) {
                         alert('Entered password does not match confirmed password!');
                     } else {
-                        const user = {
+                        const instructor = {
                             _id: _id,
                             firstName: firstName,
                             lastName: lastName,
@@ -78,7 +78,7 @@ export default class AdminRegister extends Component {
                             contactNumber: contactNumber
                         };
 
-                        axios.put('http://localhost:3000/administrator/instructor/update', user).then(data => {
+                        axios.put('http://localhost:3000/administrator/instructor/update', instructor).then(data => {
                             alert(data.data);
                         }).catch(err => {
                             alert(err.response.data);
