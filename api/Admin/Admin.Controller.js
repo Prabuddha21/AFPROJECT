@@ -481,6 +481,50 @@ const AdminController = function () {
         });
     };
 
+    this.deleteCourse = (id) => {
+        return new Promise((resolve, reject) => {
+            CourseSchema.deleteOne({_id: id}).then(() => {
+                resolve({status: 200, message: "Course Deleted."})
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        });
+    };
+
+    this.deleteSubject = (id) => {
+        return new Promise((resolve, reject) => {
+            SubjectSchema.findById(id, (err, subject) => {
+                CourseSchema.updateMany({subjects: subject._id},{$pull: {subjects: subject._id}}, err => {
+                    if(err){
+                        reject({status: 500, message: "Error: " + err});
+                    } else {
+                        SubjectSchema.deleteOne({_id: subject._id}).catch(err => {
+                            reject({status: 500, message: "Error: " + err});
+                        });
+                        resolve({status: 200, message: "Subject Deleted."});
+                    }
+                })
+            })
+        });
+    };
+
+    this.deleteInstructor = (id) => {
+        return new Promise((resolve, reject) => {
+            InstructorSchema.findById(id, (err, instructor) => {
+                SubjectSchema.updateMany({instructors: instructor._id},{$pull: {instructors: instructor._id}}, err => {
+                    if(err){
+                        reject({status: 500, message: "Error: " + err});
+                    } else {
+                        InstructorSchema.deleteOne({_id: instructor._id}).catch(err => {
+                            reject({status: 500, message: "Error: " + err});
+                        });
+                        resolve({status: 200, message: "Instructor Deleted."});
+                    }
+                })
+            })
+        });
+    };
+
     this.addNotice = (data) => {
         return new Promise((resolve, reject) => {
             const notice = new NoticeSchema({
@@ -514,7 +558,7 @@ const AdminController = function () {
             }).catch( err => {
                 reject({status: 500, message: "Error: " + err});
             });
-        })
+        });
     };
 
     this.resetPassword = (data) => {

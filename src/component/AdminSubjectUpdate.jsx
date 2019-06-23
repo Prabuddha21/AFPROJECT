@@ -18,6 +18,7 @@ export default class AdminSubjectUpdate extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSearch = this.onSearch.bind(this);
+        this.onClick = this.onClick.bind(this);
         this.handleRemoveInstructor = this.handleRemoveInstructor.bind(this);
         this.handleAddInstructor = this.handleAddInstructor.bind(this);
         this.handleInstructorChange = this.handleInstructorChange.bind(this);
@@ -29,6 +30,18 @@ export default class AdminSubjectUpdate extends Component {
                 instructors: data.data
             })
         });
+    }
+
+    onClick(event){
+        event.preventDefault();
+        if (confirm("Are you sure you want to delete this subject?")) {
+            axios.delete('http://localhost:3000/administrator/subject/delete/' + this.state._id).then(data => {
+                alert(data.data);
+                window.location.reload();
+            }).catch(err => {
+                console.log(err.response.data);
+            })
+        }
     }
 
     onChange(event) {
@@ -183,6 +196,10 @@ export default class AdminSubjectUpdate extends Component {
             <br/>
             <button type="submit" className="btn btn-lg btn-primary btn-block">
                 Update Subject
+            </button>
+            <br/>
+            <button onClick={this.onClick} className="btn btn-lg btn-danger btn-block">
+                Delete Subject
             </button>
             <br/>
         </form>;

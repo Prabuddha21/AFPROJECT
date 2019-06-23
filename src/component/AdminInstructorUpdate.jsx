@@ -21,6 +21,19 @@ export default class AdminInstructorUpdate extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSearch = this.onSearch.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(event){
+        event.preventDefault();
+        if (confirm("Are you sure you want to delete this Instructor?")) {
+            axios.delete('http://localhost:3000/administrator/instructor/delete/' + this.state._id).then(data => {
+                alert(data.data);
+                window.location.reload();
+            }).catch(err => {
+                console.log(err.response.data);
+            })
+        }
     }
 
     onSearch(event){
@@ -186,6 +199,11 @@ export default class AdminInstructorUpdate extends Component {
             <button type="submit" className="btn btn-lg btn-primary btn-block">
                 Update
             </button>
+            <br/>
+            <button onClick={this.onClick} className="btn btn-lg btn-danger btn-block">
+                Delete Subject
+            </button>
+            <br/>
         </form>;
 
         return <div className="container mt-2">

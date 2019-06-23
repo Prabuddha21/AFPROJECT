@@ -67,6 +67,14 @@ admin.put('/instructor/update', (req, res) => {
     })
 });
 
+admin.delete('/instructor/delete/:id', (req, res) => {
+    AdminController.deleteInstructor(req.params.id).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
 admin.post('/instructor/profile', (req, res) => {
     AdminController.selectInstructor(req.body).then(data => {
         res.status(data.status).send(data.data);
@@ -100,6 +108,15 @@ admin.put('/course/update', (req, res) => {
     })
 });
 
+admin.delete('/course/delete/:id', (req, res) => {
+    AdminController.deleteCourse(req.params.id).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+
 admin.get('/courses', (req, res) => {
     AdminController.selectAllCourses().then(data => {
         res.status(data.status).send(data.data);
@@ -118,6 +135,14 @@ admin.post('/subject/register', (req, res) => {
 
 admin.put('/subject/update', (req, res) => {
     AdminController.updateSubject(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.delete('/subject/delete/:id', (req, res) => {
+    AdminController.deleteSubject(req.params.id).then(data => {
         res.status(data.status).send(data.message);
     }).catch(err => {
         res.status(err.status).send(err.message);
