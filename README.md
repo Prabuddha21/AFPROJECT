@@ -7,7 +7,7 @@ This is 2019-3rd Year-2nd Semester Application Framework final project by <b>Pra
 
 Download/Clone this project to your local environment
 
-$ git clone https://github.com/iamdempa/AF-3rdY2ndSem-SE3040-2019.git
+$ git clone https://github.com/Prabuddha21/AFPROJECT.git
 
 Install dependencies
 
