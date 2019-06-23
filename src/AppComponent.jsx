@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-import AdminLogin from './Component/AdminLogin';
-import AdminDashboard from './Component/AdminDashboard';
-import AdminAuthentication from './Component/AdminAuthentication';
-import AdminPassReset from "./Component/AdminPassReset";
+import AdminLogin from './component/AdminLogin';
+import AdminDashboard from './component/AdminDashboard';
+import AdminAuthentication from './component/AdminAuthentication';
+import AdminPassReset from "./component/AdminPassReset";
 
 export default class AppComponent extends Component{
 
