@@ -38,6 +38,7 @@ export default class AdminCourseCreate extends Component {
 
             axios.post('http://localhost:3000/administrator/course/register', course).then(data => {
                 alert(data.data);
+                window.location.reload();
             }).catch(err => {
                 alert(err.response.data);
             });
