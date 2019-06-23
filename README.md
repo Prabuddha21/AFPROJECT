@@ -21,4 +21,4 @@ $ npm start - This will execute the project
 
 URL to access the application
 
-$ http://localhost:3000/admin
+$ url http://localhost:3000/admin
