@@ -3,7 +3,7 @@ Application Framework Project (3rd Year 2nd Semester) - Sri Lanka Institute of I
 
 This is 2019-3rd Year-2nd Semester Application Framework final project by <b>Prabuddha Alahakoon, Jananath Banuka, Ravindu Anthony and Nawodya Rathnayake</b>
 
-This repository contains the administraion part of the project and all of it is implemented by Prabuddha Alahakoon.
+This repository contains the administraion part of the project and all of it is implemented by <b>Prabuddha Alahakoon<b>.
 
 # Instructions
 
