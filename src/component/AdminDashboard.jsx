@@ -9,6 +9,8 @@ import AdminInstructorRegister from "./AdminInstructorRegister";
 import AdminInstructorUpdate from "./AdminInstructorUpdate";
 import AdminCourseCreate from "./AdminCourseCreate";
 import AdminSubjectCreate from "./AdminSubjectCreate";
+import AdminCourseUpdate from "./AdminCourseUpdate";
+import AdminSubjectUpdate from "./AdminSubjectUpdate";
 
 export default class AdminDashboard extends Component {
 
@@ -17,11 +19,6 @@ export default class AdminDashboard extends Component {
     }
 
     render() {
-
-        // <Route exact path="/admin/dashboard/course/update" component={}/>
-        // <Route exact path="/admin/dashboard/subject/add" component={}/>
-        // <Route exact path="/admin/dashboard/subject/update" component={}/>
-
         return <Router>
             <div className="AdminDashboard">
                 <NavBar/>
@@ -32,7 +29,9 @@ export default class AdminDashboard extends Component {
                     <Route exact path="/admin/dashboard/instructor/add" component={AdminInstructorRegister}/>
                     <Route exact path="/admin/dashboard/instructor/update" component={AdminInstructorUpdate}/>
                     <Route exact path="/admin/dashboard/course/add" component={AdminCourseCreate}/>
+                    <Route exact path="/admin/dashboard/course/update" component={AdminCourseUpdate}/>
                     <Route exact path="/admin/dashboard/subject/add" component={AdminSubjectCreate}/>
+                    <Route exact path="/admin/dashboard/subject/update" component={AdminSubjectUpdate}/>
                 </div>
             </div>
         </Router>

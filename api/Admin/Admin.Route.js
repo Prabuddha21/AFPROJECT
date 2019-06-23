@@ -84,6 +84,22 @@ admin.post('/course/register', (req, res) => {
     })
 });
 
+admin.post('/course/search', (req, res) => {
+    AdminController.selectCourse(req.body).then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.put('/course/update', (req, res) => {
+    AdminController.updateCourse(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
 admin.get('/courses', (req, res) => {
     AdminController.selectAllCourses().then(data => {
         res.status(data.status).send(data.data);
@@ -100,6 +116,30 @@ admin.post('/subject/register', (req, res) => {
     })
 });
 
+admin.put('/subject/update', (req, res) => {
+    AdminController.updateSubject(req.body).then(data => {
+        res.status(data.status).send(data.message);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.post('/subject/search', (req, res) => {
+    AdminController.selectSubject(req.body).then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.get('/subjects', (req, res) => {
+    AdminController.selectAllSubjects().then(data => {
+        res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    });
+});
+
 admin.post('/addnotice', (req, res) => {
     AdminController.addNotice(req.body).then(data => {
         res.status(data.status).send(data.message);
@@ -111,6 +151,14 @@ admin.post('/addnotice', (req, res) => {
 admin.get('/getnotices', (req, res) => {
     AdminController.getNotice().then(data => {
         res.status(data.status).send(data.data);
+    }).catch(err => {
+        res.status(err.status).send(err.message);
+    })
+});
+
+admin.delete('/removenotice/:id', (req, res) => {
+    AdminController.deleteNotice(req.params.id).then(data => {
+        res.status(data.status).send(data.message);
     }).catch(err => {
         res.status(err.status).send(err.message);
     })

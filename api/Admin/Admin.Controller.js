@@ -268,6 +268,102 @@ const AdminController = function () {
         });
     };
 
+    this.updateCourse = (data) => {
+        return new Promise((resolve, reject) => {
+            CourseSchema.findOne({_id: data._id}).then(item => {
+                if(item){
+                    var updateCourse = {};
+
+                    CourseSchema.findOne({code: data.code}).then(course => {
+                        if(course) {
+                            if (course._id == data._id) {
+                                updateCourse = {
+                                    name: data.name,
+                                    description: data.description,
+                                    years: data.years,
+                                    subjects: data.subjects
+                                };
+
+                                CourseSchema.updateOne({_id: data._id}, updateCourse).then(data => {
+                                    resolve({status: 200, message: "Update Successful."})
+                                }).catch(err => {
+                                    reject({status: 500, message: "Error: " + err});
+                                });
+                            } else {
+                                reject({status: 500, message: "Course Code in use."});
+                            }
+                        } else {
+                            updateCourse = {
+                                code: data.code,
+                                name: data.name,
+                                description: data.description,
+                                years: data.years,
+                                subjects: data.subjects
+                            };
+
+                            CourseSchema.updateOne({_id: data._id}, updateCourse).then(data => {
+                                resolve({status: 200, message: "Update Successful."})
+                            }).catch(err => {
+                                reject({status: 500, message: "Error: " + err});
+                            });
+                        }
+                    });
+                } else {
+                    reject({status: 404, message: "Something went wrong."});
+                }
+            }).catch(err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        });
+    };
+
+    this.updateSubject = (data) => {
+        return new Promise((resolve, reject) => {
+            SubjectSchema.findOne({_id: data._id}).then(item => {
+                if(item){
+                    var updateSubject = {};
+
+                    SubjectSchema.findOne({code: data.code}).then(subject => {
+                        if(subject) {
+                            if (subject._id == data._id) {
+                                updateSubject = {
+                                    name: data.name,
+                                    description: data.description,
+                                    instructors: data.instructors
+                                };
+
+                                SubjectSchema.updateOne({_id: data._id}, updateSubject).then(data => {
+                                    resolve({status: 200, message: "Update Successful."})
+                                }).catch(err => {
+                                    reject({status: 500, message: "Error: " + err});
+                                });
+                            } else {
+                                reject({status: 500, message: "Subject Code in use."});
+                            }
+                        } else {
+                            updateSubject = {
+                                code: data.code,
+                                name: data.name,
+                                description: data.description,
+                                instructors: data.instructors
+                            };
+
+                            SubjectSchema.updateOne({_id: data._id}, updateSubject).then(data => {
+                                resolve({status: 200, message: "Update Successful."})
+                            }).catch(err => {
+                                reject({status: 500, message: "Error: " + err});
+                            });
+                        }
+                    });
+                } else {
+                    reject({status: 404, message: "Something went wrong."});
+                }
+            }).catch(err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        });
+    };
+
     this.select = (data) => {
         return new Promise((resolve, reject) => {
             const decoded = jwt.verify(data.token, process.env.SECRET_KEY);
@@ -345,6 +441,46 @@ const AdminController = function () {
         })
     };
 
+    this.selectAllSubjects = () => {
+        return new Promise((resolve, reject) => {
+            SubjectSchema.find().then((data) => {
+                resolve({status: 200, data: data})
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        })
+    };
+
+    this.selectCourse = (data) => {
+        return new Promise((resolve, reject) => {
+            const code = data.code;
+            CourseSchema.findOne({code: code}).then(item => {
+                if(item){
+                    resolve({status: 200, data: item});
+                } else {
+                    reject({status: 404, message: "Course does not exist."});
+                }
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err})
+            });
+        });
+    };
+
+    this.selectSubject = (data) => {
+        return new Promise((resolve, reject) => {
+            const code = data.code;
+            SubjectSchema.findOne({code: code}).then(item => {
+                if(item){
+                    resolve({status: 200, data: item});
+                } else {
+                    reject({status: 404, message: "Subject does not exist."});
+                }
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err})
+            });
+        });
+    };
+
     this.addNotice = (data) => {
         return new Promise((resolve, reject) => {
             const notice = new NoticeSchema({
@@ -365,6 +501,16 @@ const AdminController = function () {
         return new Promise((resolve, reject) => {
             NoticeSchema.find().limit(3).sort({'_id': -1}).then((data) => {
                 resolve({status: 200, data: data})
+            }).catch( err => {
+                reject({status: 500, message: "Error: " + err});
+            });
+        })
+    };
+
+    this.deleteNotice = (data) => {
+        return new Promise((resolve, reject) => {
+            NoticeSchema.deleteOne({_id: data}).then(() => {
+                resolve({status: 200, message: "Notice Deleted."})
             }).catch( err => {
                 reject({status: 500, message: "Error: " + err});
             });

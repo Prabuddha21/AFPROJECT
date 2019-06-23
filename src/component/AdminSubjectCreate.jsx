@@ -19,7 +19,7 @@ export default class AdminSubjectCreate extends Component {
         this.handleRemoveInstructor = this.handleRemoveInstructor.bind(this);
         this.handleAddInstructor = this.handleAddInstructor.bind(this);
         this.handleInstructorChange = this.handleInstructorChange.bind(this);
-        this.handleRemoveCourse = this.handleRemoveInstructor.bind(this);
+        this.handleRemoveCourse = this.handleRemoveCourse.bind(this);
         this.handleAddCourse = this.handleAddCourse.bind(this);
         this.handleCourseChange = this.handleCourseChange.bind(this);
     }

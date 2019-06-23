@@ -73,9 +73,7 @@ export default class AdminHome extends Component{
             <br/>
             <div className="mx-auto">
                 <div className="jumbotron bg-light">
-                    <div className="mx-auto">
                         {notices !== null ? notices : <p>No Notices</p>}
-                    </div>
                 </div>
                 <div className="col-md-6 mt-5 mx-auto">
                     <form>
