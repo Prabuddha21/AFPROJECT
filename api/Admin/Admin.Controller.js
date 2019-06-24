@@ -184,7 +184,7 @@ const AdminController = function () {
                         bcrypt.hash(data.password, 10, (err, hash) => {
 
                             let updateAdmin = {};
-                            if(data.password == null) {
+                            if(data.password == null || data.password == "") {
                                 updateAdmin = {
                                     firstName: data.firstName,
                                     lastName: data.lastName,
@@ -229,7 +229,7 @@ const AdminController = function () {
                         bcrypt.hash(data.password, 10, (err, hash) => {
 
                             let updateInstructor = {};
-                            if(data.password == null) {
+                            if(data.password == null || data.password == "") {
                                 updateInstructor = {
                                     firstName: data.firstName,
                                     lastName: data.lastName,

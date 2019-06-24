@@ -201,7 +201,7 @@ export default class AdminInstructorUpdate extends Component {
             </button>
             <br/>
             <button onClick={this.onClick} className="btn btn-lg btn-danger btn-block">
-                Delete Subject
+                Delete Instructor
             </button>
             <br/>
         </form>;
