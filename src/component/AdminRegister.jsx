@@ -51,6 +51,7 @@ export default class AdminRegister extends Component {
 
                         axios.post('http://localhost:3000/administrator/register', admin).then(data => {
                             alert(data.data);
+                            window.location.reload();
                         }).catch(err => {
                             alert(err.response.data);
                         })

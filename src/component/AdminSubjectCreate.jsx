@@ -62,6 +62,7 @@ export default class AdminSubjectCreate extends Component {
 
             axios.post('http://localhost:3000/administrator/subject/register', subject).then(data => {
                 alert(data.data);
+                window.location.reload();
             }).catch(err => {
                 alert(err.response.data);
             });
